@@ -1,0 +1,24 @@
+{
+  "cSpell.words": [
+    "Apocynaceae",
+    "Asclepias",
+    "domestica",
+    "Malus",
+    "Rosaceae",
+    "saccharum",
+    "Sapindaceae",
+    "supabase",
+    "syriaca"
+  ],
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "always"
+  },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ]
+}

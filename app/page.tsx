@@ -1,6 +1,5 @@
-import Card from "../src/components/Card";
-
-import { zones } from "../src/data/zones";
+import Card from "@/components/ui/Card";
+import { zones } from "@/data/zones";
 
 export default function Home() {
   return (
@@ -9,10 +8,10 @@ export default function Home() {
 
       {zones.map((zone) => (
         <Card
-          key={zone.name}
+          key={zone.id}
           name={zone.name}
-          status={zone.status}
-          species={zone.species}
+          description={zone.description}
+          href={`/zones/${zone.id}`}
         />
       ))}
     </main>

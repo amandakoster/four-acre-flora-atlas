@@ -12,14 +12,6 @@ export type Zone = {
   description: string;
 };
 
-export type Species = {
-  id: string;
-  commonName: string;
-  scientificName: string;
-  family: string;
-  nativeStatus: "native" | "non-native" | "invasive" | "unknown";
-};
-
 export type Observation = {
   id: string;
   speciesId: string;
