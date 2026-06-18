@@ -1,37 +1,86 @@
-<!-- This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app). -->
+# Four-Acre Flora Atlas
 
-## Getting Started
+Interactive mapping and observation system for documenting, identifying, and managing plant life across a four-acre property.
 
-First, run the development server:
+## Technology Stack
+
+### Frontend
+
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+
+### Hosting
+
+- Vercel (Free)
+
+### Database
+
+- Supabase PostgreSQL (Free)
+
+### Source Control
+
+- Git
+- GitHub
+
+## Project Goals
+
+- Track plant observations
+- Organize observations by zone
+- Build a searchable species catalog
+- Document native and cultivated plants
+- Support long-term ecological monitoring
+- Create a living atlas of the property
+
+## Planned Features
+
+### Species Catalog
+
+- Common Name
+- Scientific Name
+- Native Status
+- Notes
+- Photos
+
+### Property Zones
+
+- Zone management
+- Habitat descriptions
+- Filtering by zone
+
+### Observations
+
+- Observation date
+- Species observed
+- Location
+- Notes
+- Photos
+
+### Future Enhancements
+
+- GIS mapping
+- Property atlas visualization
+- User authentication
+- Mobile support
+- AI-assisted identification
+
+## Development
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```text
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Deployment
 
-## Learn More
+See:
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-test
+```text
+README-DEPLOY.md
+```
