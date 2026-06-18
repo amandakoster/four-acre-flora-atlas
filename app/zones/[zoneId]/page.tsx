@@ -1,3 +1,4 @@
+import Card from "@/components/ui/Card";
 import { zones } from "@/data/zones";
 import { zoneData } from "@/data/zoneData";
 
@@ -5,6 +6,13 @@ type Props = {
   params: Promise<{
     zoneId: string;
   }>;
+};
+
+const formatSpeciesName = (speciesId: string) => {
+  return speciesId
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
 };
 
 export default async function ZonePage({ params }: Props) {
@@ -18,15 +26,17 @@ export default async function ZonePage({ params }: Props) {
     <main className="p-10">
       <h1 className="text-5xl font-bold">{zone?.name}</h1>
 
-      <p className="text-gray-400 mb-6">{zone?.description}</p>
+      <p className="mb-6 text-gray-400">{zone?.description}</p>
 
       <div className="space-y-4">
         {observations.map((o) => (
-          <div key={o.speciesId} className="border p-4 rounded">
-            <p className="font-bold">{o.speciesId}</p>
-            <p className="text-sm text-gray-400">{o.observedDate}</p>
-            <p>{o.notes}</p>
-          </div>
+          <Card
+            key={`${o.speciesId}-${o.observedDate}`}
+            name={formatSpeciesName(o.speciesId)}
+            description={o.notes}
+          >
+            <p className="text-sm text-gray-400">Observed: {o.observedDate}</p>
+          </Card>
         ))}
       </div>
     </main>
