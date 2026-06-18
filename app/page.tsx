@@ -1,57 +1,14 @@
-import ZoneCard from "../src/components/ZoneCard";
+import Card from "../src/components/Card";
 
-const zones = [
-  {
-    name: "Forest",
-    status: "Surveying",
-    species: ["Sugar Maple", "Red Maple", "White Oak"],
-  },
-  {
-    name: "Pollinator Meadow",
-    status: "In Progress",
-    species: ["Coreopsis", "Milkweed"],
-  },
-  {
-    name: "Pollinator Garden",
-    status: "In Progress",
-    species: ["Poppies"],
-  },
-  {
-    name: "Fruit Trees",
-    status: "Surveying",
-    species: [
-      "Peach",
-      "Asian Pear",
-      "Santa Rosa Plum",
-      "Shiro Plum",
-      "Liberty Pear",
-      "Hosui Asian Pear",
-      "Reliance Peach",
-    ],
-  },
-  {
-    name: "Vegetable Gardens",
-    status: "In Progress",
-    species: [
-      "Armenian Cucumber",
-      "Muncher Cucumber",
-      "Brandywine Tomato",
-      "Stone Ridge Tomato",
-      "Unknown Tomato #1",
-      "Unknown Tomato #2",
-    ],
-  },
-];
+import { zones } from "../src/data/zones";
 
 export default function Home() {
   return (
     <main className="p-10">
-      <h1 className="mb-8 text-5xl font-bold">
-        Four-Acre Flora Atlas
-      </h1>
+      <h1 className="mb-8 text-5xl font-bold">Four-Acre Flora Atlas</h1>
 
       {zones.map((zone) => (
-        <ZoneCard
+        <Card
           key={zone.name}
           name={zone.name}
           status={zone.status}
