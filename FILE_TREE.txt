@@ -3,8 +3,6 @@
 │   ├── favicon.ico
 │   ├── globals.css
 │   ├── layout.tsx
-│   ├── login
-│   │   └── page.tsx
 │   ├── observations
 │   │   └── page.tsx
 │   ├── page.tsx
