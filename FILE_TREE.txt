@@ -6,6 +6,7 @@
 │   ├── login
 │   │   └── page.tsx
 │   ├── observations
+│   │   └── page.tsx
 │   ├── page.tsx
 │   └── zones
 │       └── [zoneId]
@@ -31,6 +32,7 @@
 │   │   ├── forms
 │   │   │   └── AddObservationForm.tsx
 │   │   ├── Header.tsx
+│   │   ├── RecentObservations.tsx
 │   │   └── ui
 │   │       └── Card.tsx
 │   ├── constants
@@ -39,9 +41,9 @@
 │   │   ├── observations.ts
 │   │   ├── README-data.md
 │   │   ├── species.ts
-│   │   ├── zoneData.ts
 │   │   └── zones.ts
 │   ├── lib
+│   │   ├── getRecentObservations.ts
 │   │   └── supabase.ts
 │   └── types
 │       ├── observation.ts
