@@ -1,4 +1,3 @@
-.
 ├── app
 │   ├── dashboard
 │   ├── favicon.ico
@@ -6,6 +5,7 @@
 │   ├── layout.tsx
 │   ├── login
 │   │   └── page.tsx
+│   ├── observations
 │   ├── page.tsx
 │   └── zones
 │       └── [zoneId]
@@ -29,21 +29,28 @@
 ├── README.md
 ├── src
 │   ├── components
-│   │   ├── ObservationDetail.tsx
-│   │   ├── ObservationList.tsx
-│   │   ├── ui
-│   │   │   └── Card.tsx
-│   │   └── ZoneFilter.tsx
+│   │   ├── Breadcrumbs.tsx
+│   │   ├── forms
+│   │   │   └── AddObservationForm.tsx
+│   │   ├── Header.tsx
+│   │   └── ui
+│   │       └── Card.tsx
+│   ├── constants
+│   │   └── observationOptions.ts
 │   ├── data
 │   │   ├── observations.ts
+│   │   ├── README-data.md
+│   │   ├── species.ts
 │   │   ├── zoneData.ts
 │   │   └── zones.ts
 │   ├── lib
 │   │   └── supabase.ts
 │   └── types
-│       └── atlas.ts
+│       ├── observation.ts
+│       ├── species.ts
+│       └── zone.ts
 ├── tsconfig.json
 └── .vscode
     └── settings.json
 
-13 directories, 33 files
+16 directories, 38 files

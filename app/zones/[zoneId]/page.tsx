@@ -1,6 +1,7 @@
 import Card from "@/components/ui/Card";
+import { observations } from "@/data/observations";
+import { species } from "@/data/species";
 import { zones } from "@/data/zones";
-import { zoneData } from "@/data/zoneData";
 
 type Props = {
   params: Promise<{
@@ -8,19 +9,14 @@ type Props = {
   }>;
 };
 
-const formatSpeciesName = (speciesId: string) => {
-  return speciesId
-    .split("-")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
-};
-
 export default async function ZonePage({ params }: Props) {
   const { zoneId } = await params;
 
   const zone = zones.find((z) => z.id === zoneId);
 
-  const observations = zoneData[zoneId as keyof typeof zoneData] ?? [];
+  const zoneObservations = observations.filter(
+    (observation) => observation.zoneId === zoneId,
+  );
 
   return (
     <main className="p-10">
@@ -29,15 +25,23 @@ export default async function ZonePage({ params }: Props) {
       <p className="mb-6 text-gray-400">{zone?.description}</p>
 
       <div className="space-y-4">
-        {observations.map((o) => (
-          <Card
-            key={`${o.speciesId}-${o.observedDate}`}
-            name={formatSpeciesName(o.speciesId)}
-            description={o.notes}
-          >
-            <p className="text-sm text-gray-400">Observed: {o.observedDate}</p>
-          </Card>
-        ))}
+        {zoneObservations.map((observation) => {
+          const speciesRecord = species.find(
+            (s) => s.id === observation.speciesId,
+          );
+
+          return (
+            <Card
+              key={observation.id}
+              name={speciesRecord?.commonName ?? observation.speciesId}
+              description={observation.notes}
+            >
+              <p className="text-sm text-gray-400">
+                Observed: {observation.observedDate}
+              </p>
+            </Card>
+          );
+        })}
       </div>
     </main>
   );
