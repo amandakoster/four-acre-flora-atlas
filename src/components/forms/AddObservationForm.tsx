@@ -2,11 +2,16 @@
 
 import { useState } from "react";
 import { zones } from "@/data/zones";
+import { supabase } from "@/lib/supabase";
 import {
   habitatOptions,
   lightExposureOptions,
   soilMoistureOptions,
 } from "@/constants/observationOptions";
+
+const createSpeciesId = (commonName: string) => {
+  return commonName.trim().toLowerCase().replaceAll(" ", "-");
+};
 
 export default function AddObservationForm() {
   const [formData, setFormData] = useState({
@@ -29,20 +34,64 @@ export default function AddObservationForm() {
     }));
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    console.log(formData);
+    const speciesId = createSpeciesId(formData.commonName);
 
-    alert("Observation ready to save.");
+    const { error: speciesError } = await supabase.from("species").upsert({
+      id: speciesId,
+      common_name: formData.commonName,
+      scientific_name: formData.scientificName || null,
+      source: "manual",
+    });
+
+    if (speciesError) {
+      alert(speciesError.message);
+      return;
+    }
+
+    const { error: observationError } = await supabase
+      .from("observations")
+      .insert({
+        species_id: speciesId,
+        zone_id: formData.zoneId,
+        observed_date: formData.observedDate,
+        light_exposure: formData.lightExposure || null,
+        soil_moisture: formData.soilMoisture || null,
+        habitat: formData.habitat || null,
+        latitude: formData.latitude ? Number(formData.latitude) : null,
+        longitude: formData.longitude ? Number(formData.longitude) : null,
+        notes: formData.notes || null,
+      });
+
+    if (observationError) {
+      alert(observationError.message);
+      return;
+    }
+
+    alert("Observation saved.");
+
+    setFormData({
+      commonName: "",
+      scientificName: "",
+      zoneId: "",
+      observedDate: "",
+      lightExposure: "",
+      soilMoisture: "",
+      habitat: "",
+      latitude: "",
+      longitude: "",
+      notes: "",
+    });
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-2xl space-y-5">
+    <form onSubmit={handleSubmit} className="max-w-2xl space-y-5 font-semibold">
       <div>
-        <label className="mb-1 block text-sm text-gray-400">Common Name</label>
+        <label className="mb-1 block text-sm text-gray-100">Common Name</label>
         <input
-          className="w-full rounded border border-zinc-700 bg-transparent p-2"
+          className="w-full rounded border border-zinc-500 bg-transparent p-2"
           value={formData.commonName}
           onChange={(event) => updateField("commonName", event.target.value)}
         />
