@@ -1,7 +1,5 @@
 "use client";
 
-"use client";
-
 import AddObservationForm from "@/components/forms/AddObservationForm";
 
 export default function ObservationsPage() {
