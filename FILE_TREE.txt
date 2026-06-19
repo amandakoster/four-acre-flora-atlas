@@ -1,3 +1,4 @@
+.
 ├── app
 │   ├── dashboard
 │   ├── favicon.ico
@@ -10,10 +11,8 @@
 │   └── zones
 │       └── [zoneId]
 │           └── page.tsx
-├── .env.local
 ├── eslint.config.mjs
 ├── FILE_TREE.txt
-├── .gitignore
 ├── next.config.ts
 ├── next-env.d.ts
 ├── package.json
@@ -49,8 +48,6 @@
 │       ├── observation.ts
 │       ├── species.ts
 │       └── zone.ts
-├── tsconfig.json
-└── .vscode
-    └── settings.json
+└── tsconfig.json
 
-16 directories, 38 files
+15 directories, 35 files
