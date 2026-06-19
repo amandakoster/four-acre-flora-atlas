@@ -11,11 +11,3 @@ export type Zone = {
   name: string;
   description: string;
 };
-
-export type Observation = {
-  id: string;
-  speciesId: string;
-  zoneId: ZoneId;
-  observedDate: string;
-  notes: string;
-};

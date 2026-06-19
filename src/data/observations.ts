@@ -1,4 +1,4 @@
-import type { Observation } from "@/types/atlas";
+import type { Observation } from "@/types/observation";
 
 export const observations: Observation[] = [
   {
