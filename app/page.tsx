@@ -12,7 +12,7 @@ export default function Home() {
 
   return (
     <main className="p-10">
-      <h1 className="mb-8 text-5xl font-bold">Four-Acre Flora Atlas</h1>
+      <h1 className="mb-8 text-5xl font-bold">Four-Acre Flora</h1>
 
       {/* HARD 50/50 SPLIT — GUARANTEED */}
       <div className="grid grid-cols-2 gap-10 w-full">

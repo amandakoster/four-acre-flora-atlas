@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Four-Acre Flora Atlas",
+  title: "Four-Acre Flora",
   description: "A local plant observation atlas.",
 };
 

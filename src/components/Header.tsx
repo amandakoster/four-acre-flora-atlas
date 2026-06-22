@@ -7,7 +7,7 @@ export default function Header() {
       <div className="mx-auto flex max-w-7xl items-center justify-between">
         <div className="flex flex-col gap-3">
           <Link href="/" className="text-xl font-bold">
-            Four-Acre Flora Atlas
+            Four-Acre Flora
           </Link>
 
           <Breadcrumbs />

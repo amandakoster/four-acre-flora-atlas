@@ -1,4 +1,4 @@
-# Four-Acre Flora Atlas
+# Four-Acre Flora
 
 Interactive mapping and observation system for documenting, identifying, and managing plant life across a four-acre property.
 

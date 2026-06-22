@@ -1,8 +1,8 @@
-# Four-Acre Flora Atlas Data Model
+# Four-Acre Flora Data Model
 
 ## Purpose
 
-Four-Acre Flora Atlas is a botany and GIS project used to document plant life across a four-acre property.
+Four-Acre Flora is a botany and GIS project used to document plant life across a four-acre property.
 
 The initial data model is intentionally simple and focused on:
 

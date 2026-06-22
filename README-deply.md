@@ -1,4 +1,4 @@
-# Four-Acre Flora Atlas Deployment Guide
+# Four-Acre Flora Deployment Guide
 
 ## Source Control
 
