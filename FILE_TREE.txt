@@ -40,6 +40,9 @@
 │   │   ├── README-data.md
 │   │   ├── species.ts
 │   │   └── zones.ts
+│   ├── helpers
+│   │   └── species
+│   │       └── seedSpecies.ts
 │   ├── lib
 │   │   ├── getRecentObservations.ts
 │   │   └── supabase.ts
