@@ -38,24 +38,36 @@ export default function AddObservationForm() {
 
     const speciesId = createSpeciesId(formData.commonName);
 
-    await supabase.from("species").upsert({
+    const { error: speciesError } = await supabase.from("species").upsert({
       id: speciesId,
       common_name: formData.commonName,
       scientific_name: formData.scientificName || null,
       source: "manual",
     });
 
-    await supabase.from("observations").insert({
-      species_id: speciesId,
-      zone_id: formData.zoneId,
-      observed_date: formData.observedDate,
-      light_exposure: formData.lightExposure || null,
-      soil_moisture: formData.soilMoisture || null,
-      habitat: formData.habitat || null,
-      latitude: formData.latitude ? Number(formData.latitude) : null,
-      longitude: formData.longitude ? Number(formData.longitude) : null,
-      notes: formData.notes || null,
-    });
+    if (speciesError) {
+      alert(speciesError.message);
+      return;
+    }
+
+    const { error: observationError } = await supabase
+      .from("observations")
+      .insert({
+        species_id: speciesId,
+        zone_id: formData.zoneId,
+        observed_date: formData.observedDate,
+        light_exposure: formData.lightExposure || null,
+        soil_moisture: formData.soilMoisture || null,
+        habitat: formData.habitat || null,
+        latitude: formData.latitude ? Number(formData.latitude) : null,
+        longitude: formData.longitude ? Number(formData.longitude) : null,
+        notes: formData.notes || null,
+      });
+
+    if (observationError) {
+      alert(observationError.message);
+      return;
+    }
 
     alert("Observation saved.");
 
@@ -77,6 +89,7 @@ export default function AddObservationForm() {
     <form onSubmit={handleSubmit} className="max-w-2xl space-y-5 font-semibold">
       <div>
         <label className="mb-1 block text-sm text-gray-100">Common Name</label>
+
         <input
           className="w-full rounded border border-zinc-500 bg-transparent p-2"
           value={formData.commonName}
@@ -88,6 +101,7 @@ export default function AddObservationForm() {
         <label className="mb-1 block text-sm text-gray-400">
           Scientific Name
         </label>
+
         <input
           className="w-full rounded border border-zinc-700 bg-transparent p-2"
           value={formData.scientificName}
@@ -97,12 +111,14 @@ export default function AddObservationForm() {
 
       <div>
         <label className="mb-1 block text-sm text-gray-400">Zone</label>
+
         <select
           className="w-full rounded border border-zinc-700 bg-black p-2"
           value={formData.zoneId}
           onChange={(e) => updateField("zoneId", e.target.value)}
         >
           <option value="">Select zone</option>
+
           {zones.map((zone) => (
             <option key={zone.id} value={zone.id}>
               {zone.name}
@@ -115,6 +131,7 @@ export default function AddObservationForm() {
         <label className="mb-1 block text-sm text-gray-400">
           Observed Date
         </label>
+
         <input
           type="date"
           className="w-full rounded border border-zinc-700 bg-transparent p-2"
@@ -127,15 +144,17 @@ export default function AddObservationForm() {
         <label className="mb-1 block text-sm text-gray-400">
           Light Exposure
         </label>
+
         <select
           className="w-full rounded border border-zinc-700 bg-black p-2"
           value={formData.lightExposure}
           onChange={(e) => updateField("lightExposure", e.target.value)}
         >
           <option value="">Select light exposure</option>
-          {lightExposureOptions.map((o) => (
-            <option key={o.value} value={o.value}>
-              {o.label}
+
+          {lightExposureOptions.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
             </option>
           ))}
         </select>
@@ -145,15 +164,17 @@ export default function AddObservationForm() {
         <label className="mb-1 block text-sm text-gray-400">
           Soil Moisture
         </label>
+
         <select
           className="w-full rounded border border-zinc-700 bg-black p-2"
           value={formData.soilMoisture}
           onChange={(e) => updateField("soilMoisture", e.target.value)}
         >
           <option value="">Select soil moisture</option>
-          {soilMoistureOptions.map((o) => (
-            <option key={o.value} value={o.value}>
-              {o.label}
+
+          {soilMoistureOptions.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
             </option>
           ))}
         </select>
@@ -161,15 +182,17 @@ export default function AddObservationForm() {
 
       <div>
         <label className="mb-1 block text-sm text-gray-400">Habitat</label>
+
         <select
           className="w-full rounded border border-zinc-700 bg-black p-2"
           value={formData.habitat}
           onChange={(e) => updateField("habitat", e.target.value)}
         >
           <option value="">Select habitat</option>
-          {habitatOptions.map((o) => (
-            <option key={o.value} value={o.value}>
-              {o.label}
+
+          {habitatOptions.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
             </option>
           ))}
         </select>
@@ -177,6 +200,7 @@ export default function AddObservationForm() {
 
       <div>
         <label className="mb-1 block text-sm text-gray-400">Latitude</label>
+
         <input
           className="w-full rounded border border-zinc-700 bg-transparent p-2"
           value={formData.latitude}
@@ -186,6 +210,7 @@ export default function AddObservationForm() {
 
       <div>
         <label className="mb-1 block text-sm text-gray-400">Longitude</label>
+
         <input
           className="w-full rounded border border-zinc-700 bg-transparent p-2"
           value={formData.longitude}
@@ -195,6 +220,7 @@ export default function AddObservationForm() {
 
       <div>
         <label className="mb-1 block text-sm text-gray-400">Notes</label>
+
         <textarea
           className="min-h-32 w-full rounded border border-zinc-700 bg-transparent p-2"
           value={formData.notes}
