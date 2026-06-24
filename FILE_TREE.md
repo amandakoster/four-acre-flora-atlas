@@ -1,0 +1,60 @@
+.
+├── app
+│   ├── dashboard
+│   ├── favicon.ico
+│   ├── globals.css
+│   ├── layout.tsx
+│   ├── observations
+│   │   └── page.tsx
+│   ├── page.tsx
+│   ├── species
+│   │   ├── page.tsx
+│   │   └── [speciesId]
+│   │       └── page.tsx
+│   └── zones
+│       └── [zoneId]
+│           └── page.tsx
+├── eslint.config.mjs
+├── FILE_TREE.md
+├── FILE_TREE.txt
+├── next.config.ts
+├── next-env.d.ts
+├── package.json
+├── package-lock.json
+├── postcss.config.mjs
+├── public
+│   ├── file.svg
+│   ├── globe.svg
+│   ├── next.svg
+│   ├── vercel.svg
+│   └── window.svg
+├── README-deply.md
+├── README.md
+├── src
+│   ├── components
+│   │   ├── Breadcrumbs.tsx
+│   │   ├── forms
+│   │   │   └── AddObservationForm.tsx
+│   │   ├── Header.tsx
+│   │   ├── RecentObservations.tsx
+│   │   └── ui
+│   │       └── Card.tsx
+│   ├── constants
+│   │   └── observationOptions.ts
+│   ├── data
+│   │   ├── observations.ts
+│   │   ├── README-data.md
+│   │   ├── species.ts
+│   │   └── zones.ts
+│   ├── helpers
+│   │   └── species
+│   │       └── seedSpecies.ts
+│   ├── lib
+│   │   ├── getRecentObservations.ts
+│   │   ├── getZones.ts
+│   │   └── supabase.ts
+│   └── types
+│       ├── observation.ts
+│       ├── species.ts
+│       └── zone.ts
+└── tsconfig.json

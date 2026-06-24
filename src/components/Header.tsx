@@ -13,12 +13,21 @@ export default function Header() {
           <Breadcrumbs />
         </div>
 
-        <Link
-          href="/observations"
-          className="rounded border border-zinc-700 px-4 py-2 text-sm hover:bg-zinc-900"
-        >
-          + Add Observation
-        </Link>
+        <div className="flex items-center gap-3">
+          <Link
+            href="/species"
+            className="rounded border border-zinc-700 px-4 py-2 text-sm hover:bg-zinc-900"
+          >
+            Species
+          </Link>
+
+          <Link
+            href="/observations"
+            className="rounded border border-zinc-700 px-4 py-2 text-sm hover:bg-zinc-900"
+          >
+            + Add Plant
+          </Link>
+        </div>
       </div>
     </header>
   );

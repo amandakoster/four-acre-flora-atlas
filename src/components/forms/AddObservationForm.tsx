@@ -9,22 +9,21 @@ import {
   soilMoistureOptions,
 } from "@/constants/observationOptions";
 
-const createSpeciesId = (commonName: string) =>
-  commonName.trim().toLowerCase().replaceAll(" ", "-");
+const emptyFormData = {
+  commonName: "",
+  scientificName: "",
+  zoneId: "",
+  observedDate: "",
+  lightExposure: "",
+  soilMoisture: "",
+  habitat: "",
+  latitude: "",
+  longitude: "",
+  notes: "",
+};
 
-export default function AddObservationForm() {
-  const [formData, setFormData] = useState({
-    commonName: "",
-    scientificName: "",
-    zoneId: "",
-    observedDate: "",
-    lightExposure: "",
-    soilMoisture: "",
-    habitat: "",
-    latitude: "",
-    longitude: "",
-    notes: "",
-  });
+function AddObservationForm() {
+  const [formData, setFormData] = useState(emptyFormData);
 
   const updateField = (field: keyof typeof formData, value: string) => {
     setFormData((current) => ({
@@ -33,8 +32,27 @@ export default function AddObservationForm() {
     }));
   };
 
+  const createSpeciesId = (commonName: string) => {
+    return commonName.trim().toLowerCase().replaceAll(" ", "-");
+  };
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (!formData.commonName.trim()) {
+      alert("Common Name is required.");
+      return;
+    }
+
+    if (!formData.zoneId) {
+      alert("Zone is required.");
+      return;
+    }
+
+    if (!formData.observedDate) {
+      alert("Observed Date is required.");
+      return;
+    }
 
     const speciesId = createSpeciesId(formData.commonName);
 
@@ -42,47 +60,26 @@ export default function AddObservationForm() {
       id: speciesId,
       common_name: formData.commonName,
       scientific_name: formData.scientificName || null,
+      zone_id: formData.zoneId,
+      observed_date: formData.observedDate,
+      light_exposure: formData.lightExposure || null,
+      soil_moisture: formData.soilMoisture || null,
+      habitat: formData.habitat || null,
+      latitude: formData.latitude ? Number(formData.latitude) : null,
+      longitude: formData.longitude ? Number(formData.longitude) : null,
+      notes: formData.notes || null,
       source: "manual",
     });
 
     if (speciesError) {
+      console.error(speciesError);
       alert(speciesError.message);
       return;
     }
 
-    const { error: observationError } = await supabase
-      .from("observations")
-      .insert({
-        species_id: speciesId,
-        zone_id: formData.zoneId,
-        observed_date: formData.observedDate,
-        light_exposure: formData.lightExposure || null,
-        soil_moisture: formData.soilMoisture || null,
-        habitat: formData.habitat || null,
-        latitude: formData.latitude ? Number(formData.latitude) : null,
-        longitude: formData.longitude ? Number(formData.longitude) : null,
-        notes: formData.notes || null,
-      });
+    alert("Species saved.");
 
-    if (observationError) {
-      alert(observationError.message);
-      return;
-    }
-
-    alert("Observation saved.");
-
-    setFormData({
-      commonName: "",
-      scientificName: "",
-      zoneId: "",
-      observedDate: "",
-      lightExposure: "",
-      soilMoisture: "",
-      habitat: "",
-      latitude: "",
-      longitude: "",
-      notes: "",
-    });
+    setFormData(emptyFormData);
   };
 
   return (
@@ -229,8 +226,10 @@ export default function AddObservationForm() {
       </div>
 
       <button className="rounded border border-zinc-700 px-4 py-2 hover:bg-zinc-900">
-        Save Observation
+        Save Species
       </button>
     </form>
   );
 }
+
+export default AddObservationForm;

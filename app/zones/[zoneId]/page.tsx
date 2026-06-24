@@ -1,7 +1,6 @@
-import Card from "@/components/ui/Card";
-import { observations } from "@/data/observations";
-import { species } from "@/data/species";
-import { zones } from "@/data/zones";
+import Link from "next/link";
+import { supabase } from "@/lib/supabase";
+import { Species } from "@/types/species";
 
 type Props = {
   params: Promise<{
@@ -9,40 +8,60 @@ type Props = {
   }>;
 };
 
-export default async function ZonePage({ params }: Props) {
+async function ZonePage({ params }: Props) {
   const { zoneId } = await params;
 
-  const zone = zones.find((z) => z.id === zoneId);
+  const { data: zone, error: zoneError } = await supabase
+    .from("zones")
+    .select("*")
+    .eq("id", zoneId)
+    .maybeSingle();
 
-  const zoneObservations = observations.filter(
-    (observation) => observation.zoneId === zoneId,
-  );
+  if (zoneError) {
+    throw zoneError;
+  }
+
+  const { data, error: speciesError } = await supabase
+    .from("species")
+    .select("*")
+    .eq("zone_id", zoneId)
+    .order("common_name");
+
+  if (speciesError) {
+    throw speciesError;
+  }
+
+  const species: Species[] = data ?? [];
 
   return (
     <main className="p-10">
-      <h1 className="text-5xl font-bold">{zone?.name}</h1>
+      <h1 className="mb-4 text-5xl font-bold">{zone?.name ?? zoneId}</h1>
 
-      <p className="mb-6 text-gray-400">{zone?.description}</p>
+      <p className="mb-8 text-gray-400">{zone?.description ?? ""}</p>
 
-      <div className="space-y-4">
-        {zoneObservations.map((observation) => {
-          const speciesRecord = species.find(
-            (s) => s.id === observation.speciesId,
-          );
-
-          return (
-            <Card
-              key={observation.id}
-              name={speciesRecord?.commonName ?? observation.speciesId}
-              description={observation.notes}
+      {species.length === 0 ? (
+        <p>No species found in this zone.</p>
+      ) : (
+        <div className="space-y-4">
+          {species.map((plant) => (
+            <Link
+              key={plant.id}
+              href={`/species/${plant.id}`}
+              className="block rounded border border-zinc-700 p-4 hover:bg-zinc-900"
             >
-              <p className="text-sm text-gray-400">
-                Observed: {observation.observedDate}
-              </p>
-            </Card>
-          );
-        })}
-      </div>
+              <p className="font-bold">{plant.common_name}</p>
+
+              {plant.scientific_name && (
+                <p className="text-sm italic text-gray-400">
+                  {plant.scientific_name}
+                </p>
+              )}
+            </Link>
+          ))}
+        </div>
+      )}
     </main>
   );
 }
+
+export default ZonePage;
