@@ -22,6 +22,8 @@
 ├── package-lock.json
 ├── postcss.config.mjs
 ├── public
+│   ├── backgrounds
+│   │   └── bg-botanical-dark.png
 │   ├── file.svg
 │   ├── globe.svg
 │   ├── next.svg

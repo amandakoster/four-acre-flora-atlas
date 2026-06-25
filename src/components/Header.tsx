@@ -3,7 +3,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 
 function Header() {
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 border-b border-white/10 bg-emerald-950/10 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-8 py-5">
         <div className="flex flex-col gap-2">
           <Link href="/" className="leading-none">
@@ -28,7 +28,7 @@ function Header() {
             href="/observations"
             className="rounded-xl bg-emerald-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-emerald-500"
           >
-            + Add Observation
+            + Add Species
           </Link>
         </div>
       </div>

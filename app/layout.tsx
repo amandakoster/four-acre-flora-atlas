@@ -28,20 +28,23 @@ function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-[#0b0f0d] text-stone-100">
+      <body className="min-h-full overflow-x-hidden bg-[#0b0f0d] text-stone-100">
         <div className="relative flex min-h-screen flex-col">
           <div
-            className="pointer-events-none fixed inset-0 -z-10 opacity-45"
+            className="pointer-events-none fixed inset-0 -z-10 opacity-55"
             style={{
               backgroundImage: "url('/backgrounds/bg-botanical-dark.png')",
-              backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
-              backgroundSize: "cover",
+              backgroundPosition: "50% 8%",
+              backgroundSize: "120%",
             }}
           />
-          <div className="pointer-events-none fixed inset-0 -z-10 bg-black/5" />{" "}
+
+          <div className="pointer-events-none fixed inset-0 -z-10 bg-linear-to-b from-black/5 via-transparent to-black/10" />
+
           <Header />
-          <main className="relative z-10 flex-1 pt-4">{children}</main>
+
+          <main className="relative z-10 flex-1 pt-6">{children}</main>
         </div>
       </body>
     </html>
