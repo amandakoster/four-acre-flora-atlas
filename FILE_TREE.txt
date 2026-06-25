@@ -60,6 +60,7 @@
 │   │   ├── getZones.ts
 │   │   └── supabase.ts
 │   └── types
+│       ├── observation.ts
 │       ├── species.ts
 │       └── zone.ts
 └── tsconfig.json

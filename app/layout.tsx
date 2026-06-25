@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   description: "A local plant observation atlas.",
 };
 
-export default function RootLayout({
+function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -28,10 +28,24 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
-        <Header />
-        {children}
+      <body className="min-h-full bg-[#0b0f0d] text-stone-100">
+        <div className="relative flex min-h-screen flex-col">
+          <div
+            className="pointer-events-none fixed inset-0 -z-10 opacity-45"
+            style={{
+              backgroundImage: "url('/backgrounds/bg-botanical-dark.png')",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "cover",
+            }}
+          />
+          <div className="pointer-events-none fixed inset-0 -z-10 bg-black/5" />{" "}
+          <Header />
+          <main className="relative z-10 flex-1 pt-4">{children}</main>
+        </div>
       </body>
     </html>
   );
 }
+
+export default RootLayout;
