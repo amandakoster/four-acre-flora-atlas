@@ -24,12 +24,12 @@ function Header() {
             Species
           </Link>
 
-          <Link
+          {/* <Link
             href="/observations"
             className="rounded-xl bg-[color:var(--flora-forest)] px-5 py-2.5 text-sm font-medium text-[color:var(--flora-text)] transition hover:bg-[color:var(--flora-olive)]"
           >
             + Add Species
-          </Link>
+          </Link> */}
         </div>
       </div>
     </header>
