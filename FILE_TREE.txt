@@ -1,7 +1,6 @@
 ├── app
 │   ├── dashboard
 │   ├── favicon.ico
-│   ├── globals.css
 │   ├── layout.tsx
 │   ├── observations
 │   │   └── page.tsx
@@ -23,6 +22,7 @@
 ├── postcss.config.mjs
 ├── public
 │   ├── backgrounds
+│   │   ├── bg-botanical-color.png
 │   │   └── bg-botanical-dark.png
 │   ├── file.svg
 │   ├── globe.svg
@@ -61,6 +61,9 @@
 │   ├── lib
 │   │   ├── getZones.ts
 │   │   └── supabase.ts
+│   ├── styles
+│   │   ├── globals.css
+│   │   └── theme.css
 │   └── types
 │       ├── observation.ts
 │       ├── species.ts

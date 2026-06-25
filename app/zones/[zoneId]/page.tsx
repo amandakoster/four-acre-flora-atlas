@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Card from "@/components/ui/Card";
 import { supabase } from "@/lib/supabase";
 import { Species } from "@/types/species";
 
@@ -34,31 +34,48 @@ async function ZonePage({ params }: Props) {
   const species: Species[] = data ?? [];
 
   return (
-    <main className="p-10">
-      <h1 className="mb-4 text-5xl font-bold">{zone?.name ?? zoneId}</h1>
+    <main className="mx-auto w-full max-w-7xl flex-1 px-8 pt-6 pb-12">
+      <section className="mb-10">
+        <p className="mb-3 text-sm font-medium uppercase tracking-[0.4em] text-[color:var(--flora-moss)]">
+          Explore • Document • Preserve
+        </p>
 
-      <p className="mb-8 text-gray-400">{zone?.description ?? ""}</p>
+        <h1 className="mb-4 text-4xl font-medium tracking-tight text-[color:var(--flora-text)]">
+          {zone?.name ?? zoneId}
+        </h1>
+
+        {zone?.description && (
+          <p className="max-w-2xl text-base leading-7 text-[color:var(--flora-text-muted)]">
+            {zone.description}
+          </p>
+        )}
+      </section>
 
       {species.length === 0 ? (
-        <p>No species found in this zone.</p>
+        <section className="rounded-2xl border border-[color:var(--flora-border)] bg-[color:var(--flora-glass)] p-8 backdrop-blur-md">
+          <p className="text-[color:var(--flora-text-muted)]">
+            No species have been documented in this zone yet.
+          </p>
+        </section>
       ) : (
-        <div className="space-y-4">
-          {species.map((plant) => (
-            <Link
-              key={plant.id}
-              href={`/species/${plant.id}`}
-              className="block rounded border border-zinc-700 p-4 hover:bg-zinc-900"
-            >
-              <p className="font-bold">{plant.common_name}</p>
+        <section>
+          <div className="mb-6 flex items-center justify-between">
+            <span className="text-sm uppercase tracking-widest text-[color:var(--flora-text-muted)]">
+              {species.length} Species
+            </span>
+          </div>
 
-              {plant.scientific_name && (
-                <p className="text-sm italic text-gray-400">
-                  {plant.scientific_name}
-                </p>
-              )}
-            </Link>
-          ))}
-        </div>
+          <div className="grid gap-5 md:grid-cols-2">
+            {species.map((plant) => (
+              <Card
+                key={plant.id}
+                name={plant.common_name}
+                description={plant.scientific_name ?? ""}
+                href={`/species/${plant.id}`}
+              />
+            ))}
+          </div>
+        </section>
       )}
     </main>
   );

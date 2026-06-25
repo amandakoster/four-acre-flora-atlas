@@ -8,16 +8,30 @@ type CardProps = {
   children?: ReactNode;
 };
 
-export default function Card({ name, description, href, children }: CardProps) {
+function Card({ name, description, href, children }: CardProps) {
   const content = (
-    <section className="mb-5 rounded-lg border p-5 hover:bg-zinc-900">
-      <h2 className="mb-2 break-words text-xl font-bold md:text-3xl">{name}</h2>
+    <section className="group rounded-2xl border border-[color:var(--flora-border)] bg-[color:var(--flora-glass)] px-6 py-5 backdrop-blur-md transition duration-300 hover:border-[color:var(--flora-border-hover)] hover:bg-[color:var(--flora-glass-hover)]">
+      <div className="flex items-center justify-between gap-6">
+        <div className="flex-1">
+          <h2 className="text-xl font-semibold text-[color:var(--flora-text)] transition group-hover:text-[color:var(--flora-sage)]">
+            {name}
+          </h2>
 
-      {description && (
-        <p className="mb-3 text-sm text-gray-400">{description}</p>
-      )}
+          {description && (
+            <p className="mt-2 text-sm leading-6 text-[color:var(--flora-text-muted)]">
+              {description}
+            </p>
+          )}
 
-      {children}
+          {children}
+        </div>
+
+        {href && (
+          <span className="shrink-0 text-2xl text-[color:var(--flora-text-muted)] transition group-hover:translate-x-1 group-hover:text-[color:var(--flora-sage)]">
+            →
+          </span>
+        )}
+      </div>
     </section>
   );
 
@@ -31,3 +45,5 @@ export default function Card({ name, description, href, children }: CardProps) {
 
   return content;
 }
+
+export default Card;
