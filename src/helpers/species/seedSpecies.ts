@@ -1,17 +1,28 @@
 import { supabase } from "@/lib/supabase";
-import { species } from "@/data/species";
+import type { Species } from "@/types/species";
 
-export async function seedSpecies() {
-  const payload = species.map((item) => ({
-    id: item.id,
-    common_name: item.commonName,
-    scientific_name: item.scientificName ?? null,
-    source: item.source,
-  }));
+type SeedSpecies = Pick<
+  Species,
+  | "id"
+  | "common_name"
+  | "scientific_name"
+  | "zone_id"
+  | "family"
+  | "native_status"
+  | "habitat"
+  | "light_exposure"
+  | "soil_moisture"
+  | "observed_date"
+  | "latitude"
+  | "longitude"
+  | "notes"
+  | "source"
+>;
 
+export async function seedSpecies(species: SeedSpecies[] = []) {
   const { data: seededSpecies, error } = await supabase
     .from("species")
-    .upsert(payload)
+    .upsert(species)
     .select();
 
   if (error) {
