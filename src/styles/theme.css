@@ -1,0 +1,21 @@
+:root {
+  /* Backgrounds */
+  --flora-bg: #0b0f0d;
+  --flora-surface: rgba(20, 28, 20, 0.55);
+  --flora-surface-hover: rgba(32, 42, 32, 0.72);
+
+  /* Borders */
+  --flora-border: rgba(170, 190, 150, 0.15);
+  --flora-border-hover: rgba(170, 190, 150, 0.4);
+
+  /* Text */
+  --flora-text: #f3f4f1;
+  --flora-text-muted: #b8bcae;
+
+  /* Botanical palette */
+  --flora-sage: #b8c79b;
+  --flora-moss: #a6b889;
+  --flora-olive: #8da36d;
+  --flora-forest: #738d58;
+  --flora-dark-forest: #5d7348;
+}

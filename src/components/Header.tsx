@@ -3,13 +3,13 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 
 function Header() {
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-emerald-950/10 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-[color:var(--flora-border)] bg-[color:var(--flora-glass)] backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-8 py-5">
         <div className="flex flex-col gap-2">
           <Link href="/" className="leading-none">
             <h1 className="text-5xl font-semibold tracking-tight">
-              <span className="text-stone-100">Four-Acre</span>{" "}
-              <span className="text-emerald-400">Flora</span>
+              <span className="text-[color:var(--flora-text)]">Four-Acre</span>{" "}
+              <span className="text-[color:var(--flora-moss)]">Flora</span>
             </h1>
           </Link>
 
@@ -19,14 +19,14 @@ function Header() {
         <div className="flex items-center gap-3">
           <Link
             href="/species"
-            className="rounded-xl border border-white/10 bg-white/5 px-5 py-2.5 text-sm font-medium text-stone-200 backdrop-blur-md transition hover:bg-white/10"
+            className="rounded-xl border border-[color:var(--flora-border)] bg-[color:var(--flora-glass)] px-5 py-2.5 text-sm font-medium text-[color:var(--flora-text)] backdrop-blur-md transition hover:border-[color:var(--flora-border-hover)] hover:bg-[color:var(--flora-glass-hover)]"
           >
             Species
           </Link>
 
           <Link
             href="/observations"
-            className="rounded-xl bg-emerald-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-emerald-500"
+            className="rounded-xl bg-[color:var(--flora-forest)] px-5 py-2.5 text-sm font-medium text-[color:var(--flora-text)] transition hover:bg-[color:var(--flora-olive)]"
           >
             + Add Species
           </Link>
