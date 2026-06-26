@@ -10,7 +10,7 @@ async function LocationsPage() {
         </p>
 
         <h1 className="mb-4 text-4xl font-medium tracking-tight text-(--flora-text)">
-          Zones
+          Locations
         </h1>
 
         <p className="max-w-2xl text-base leading-7 text-(--flora-text-muted)">

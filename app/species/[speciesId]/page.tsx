@@ -1,9 +1,8 @@
 import { notFound } from "next/navigation";
-import { supabase } from "@/lib/supabase";
-import { Species } from "@/types/species";
 import SpeciesHeader from "@/components/species/SpeciesHeader";
 import SpeciesDetails from "@/components/species/SpeciesDetails";
-// import SpeciesActions from "@/components/species/SpeciesActions";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { Species } from "@/types/species";
 
 type Props = {
   params: Promise<{
@@ -13,6 +12,7 @@ type Props = {
 
 async function SpeciesDetailPage({ params }: Props) {
   const { speciesId } = await params;
+  const supabase = await createSupabaseServerClient();
 
   const { data, error } = await supabase
     .from("species")
@@ -38,8 +38,6 @@ async function SpeciesDetailPage({ params }: Props) {
 
       <div className="space-y-8">
         <SpeciesDetails species={species} />
-
-        {/* <SpeciesActions species={species} /> */}
       </div>
     </main>
   );

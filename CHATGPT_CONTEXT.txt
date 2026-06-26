@@ -1,0 +1,392 @@
+
+================================================================
+FILENAME: app/layout.tsx
+================================================================
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import Header from "@/components/Header";
+import "@/styles/globals.css";
+import "@/styles/theme.css";
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+export const metadata: Metadata = {
+  title: "Four-Acre Flora",
+  description: "A local plant observation atlas.",
+};
+
+function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html
+      lang="en"
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+    >
+      <body className="min-h-screen overflow-x-hidden bg-[#0b0f0d] text-stone-100">
+        <div className="fixed inset-0 -z-20 bg-[#0b0f0d]" />
+
+        <div
+          className="pointer-events-none fixed inset-0 -z-10 opacity-55"
+          style={{
+            backgroundImage: "url('/backgrounds/bg-botanical-color.png')",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center top",
+            backgroundSize: "cover",
+          }}
+        />
+
+        <div className="pointer-events-none fixed inset-0 -z-10 bg-black/10" />
+
+        <div className="relative flex min-h-screen flex-col">
+          <Header />
+
+          <main className="relative z-10 flex-1 pt-6">{children}</main>
+        </div>
+      </body>
+    </html>
+  );
+}
+
+export default RootLayout;
+
+================================================================
+FILENAME: src/data/authMenu.ts
+================================================================
+export type AuthMenuLinkItem = {
+  label: string;
+  href: string;
+};
+
+export type AuthMenuActionItem = {
+  label: string;
+  action: "sign-out";
+};
+
+export type AuthMenuItem = AuthMenuLinkItem | AuthMenuActionItem;
+
+export type AuthMenuSection = {
+  items: AuthMenuItem[];
+};
+
+export const authMenu: AuthMenuSection[] = [
+  {
+    items: [
+      {
+        label: "Dashboard",
+        href: "/dashboard",
+      },
+      {
+        label: "My Observations",
+        href: "/observations",
+      },
+      {
+        label: "My Species",
+        href: "/species",
+      },
+      {
+        label: "Settings",
+        href: "/settings",
+      },
+    ],
+  },
+  {
+    items: [
+      {
+        label: "Sign Out",
+        action: "sign-out",
+      },
+    ],
+  },
+];
+
+================================================================
+FILENAME: src/components/auth/AuthStatus.tsx
+================================================================
+"use client";
+
+import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
+import { createSupabaseBrowserClient } from "@/lib/supabase/client";
+import ProfileMenu from "@/components/auth/ProfileMenu";
+
+function AuthStatus() {
+  const supabase = useMemo(() => createSupabaseBrowserClient(), []);
+
+  const [email, setEmail] = useState<string | null>(null);
+
+  useEffect(() => {
+    const loadUser = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      setEmail(user?.email ?? null);
+    };
+
+    loadUser();
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setEmail(session?.user.email ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, [supabase]);
+
+  if (!email) {
+    return (
+      <Link
+        href="/login"
+        className="rounded-xl bg-(--flora-accent) px-5 py-2.5 text-sm font-medium text-(--flora-accent-text) transition hover:bg-(--flora-accent-hover)"
+      >
+        Sign In
+      </Link>
+    );
+  }
+
+  return <ProfileMenu email={email} />;
+}
+
+export default AuthStatus;
+
+================================================================
+FILENAME: src/components/auth/ProfileMenu.tsx
+================================================================
+"use client";
+
+import Link from "next/link";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { createSupabaseBrowserClient } from "@/lib/supabase/client";
+import {
+  authMenu,
+  type AuthMenuItem,
+  type AuthMenuSection,
+} from "@/data/authMenu";
+
+type ProfileMenuProps = {
+  email: string;
+};
+
+function ProfileMenu({ email }: ProfileMenuProps) {
+  const supabase = useMemo(() => createSupabaseBrowserClient(), []);
+
+  const [open, setOpen] = useState(false);
+
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  const username = email.split("@")[0];
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    };
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleEscape);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, []);
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    window.location.href = "/";
+  };
+
+  const renderMenuItem = (item: AuthMenuItem) => {
+    if ("href" in item) {
+      return (
+        <Link
+          key={item.label}
+          href={item.href}
+          onClick={() => setOpen(false)}
+          className="block px-4 py-2 text-sm text-(--flora-text) transition hover:bg-white/5"
+        >
+          {item.label}
+        </Link>
+      );
+    }
+
+    return (
+      <button
+        key={item.label}
+        type="button"
+        onClick={handleSignOut}
+        className="block w-full px-4 py-2 text-left text-sm font-medium text-(--flora-accent) transition hover:bg-white/5"
+      >
+        {item.label}
+      </button>
+    );
+  };
+
+  return (
+    <div ref={menuRef} className="relative">
+      <button
+        type="button"
+        onClick={() => setOpen((current) => !current)}
+        className="flex items-center gap-2 rounded-xl border border-(--flora-border) bg-(--flora-glass) px-3.5 py-2 text-sm font-medium text-(--flora-text) transition hover:border-(--flora-border-hover) hover:bg-(--flora-glass-hover)"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          className="h-5 w-5"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.8"
+        >
+          <circle cx="12" cy="8" r="3.5" />
+          <path d="M5 20c0-3.5 3-6 7-6s7 2.5 7 6" />
+        </svg>
+
+        <span>{username}</span>
+
+        <svg
+          viewBox="0 0 24 24"
+          className={`h-4 w-4 transition ${open ? "rotate-180" : ""}`}
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+        >
+          <path d="m6 9 6 6 6-6" />
+        </svg>
+      </button>
+
+      {open && (
+        <div className="absolute right-0 z-50 mt-1.5 w-52 overflow-hidden rounded-2xl border border-(--flora-border) bg-(--flora-glass) shadow-2xl backdrop-blur-md">
+          {authMenu.map((section: AuthMenuSection, sectionIndex: number) => (
+            <div key={sectionIndex}>
+              <nav className="py-2">
+                {section.items.map((item: AuthMenuItem) =>
+                  renderMenuItem(item),
+                )}
+              </nav>
+
+              {sectionIndex < authMenu.length - 1 && (
+                <div className="border-t border-(--flora-border)" />
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default ProfileMenu;
+
+================================================================
+FILENAME: src/components/Header.tsx
+================================================================
+import Link from "next/link";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import AuthStatus from "@/components/auth/AuthStatus";
+
+function Header() {
+  return (
+    <header className="sticky top-0 z-50 border-b border-(--flora-border) bg-(--flora-glass) backdrop-blur-md">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-8 py-5">
+        <div className="flex flex-col gap-2">
+          <Link href="/" className="leading-none">
+            <h1 className="text-5xl font-semibold tracking-tight">
+              <span className="text-(--flora-text)">Four-Acre</span>{" "}
+              <span className="text-(--flora-moss)">Flora</span>
+            </h1>
+          </Link>
+
+          <Breadcrumbs />
+        </div>
+
+        <nav className="flex items-center gap-3">
+          <Link
+            href="/species"
+            className="rounded-xl border border-(--flora-border) bg-(--flora-glass) px-5 py-2.5 text-sm font-medium text-(--flora-text) backdrop-blur-md transition hover:border-(--flora-border-hover) hover:bg-(--flora-glass-hover)"
+          >
+            Species
+          </Link>
+
+          <Link
+            href="/mission"
+            className="rounded-xl border border-(--flora-border) bg-(--flora-glass) px-5 py-2.5 text-sm font-medium text-(--flora-text) backdrop-blur-md transition hover:border-(--flora-border-hover) hover:bg-(--flora-glass-hover)"
+          >
+            Mission
+          </Link>
+
+          <AuthStatus />
+        </nav>
+      </div>
+    </header>
+  );
+}
+
+export default Header;
+
+================================================================
+FILENAME: src/lib/supabase/server.ts
+================================================================
+import { cookies } from "next/headers";
+import { createServerClient } from "@supabase/ssr";
+
+export async function createSupabaseServerClient() {
+  const cookieStore = await cookies();
+
+  return createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return cookieStore.getAll();
+        },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value, options }) => {
+            cookieStore.set(name, value, options);
+          });
+        },
+      },
+    },
+  );
+}
+
+================================================================
+FILENAME: src/lib/supabase/client.ts
+================================================================
+import { createBrowserClient } from "@supabase/ssr";
+
+export function createSupabaseBrowserClient() {
+  return createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+  );
+}
+
+================================================================
+REMAINING @/lib/supabase IMPORTS
+================================================================
+app/locations/[locationId]/page.tsx:2:import { supabase } from "@/lib/supabase";
+app/species/[speciesId]/page.tsx:2:import { supabase } from "@/lib/supabase";
+app/species/page.tsx:2:import { supabase } from "@/lib/supabase";
+src/components/species/EditSpeciesForm.tsx:4:import { supabase } from "@/lib/supabase";
+src/components/species/DeleteSpeciesButton.tsx:4:import { supabase } from "@/lib/supabase";
+src/components/species/EditSpeciesButton.tsx:4:import { supabase } from "@/lib/supabase";
+src/components/forms/AddObservationForm.tsx:5:import { supabase } from "@/lib/supabase";

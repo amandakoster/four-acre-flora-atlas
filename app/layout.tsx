@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Header from "@/components/Header";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
 import "@/styles/globals.css";
 import "@/styles/theme.css";
 
@@ -19,11 +20,19 @@ export const metadata: Metadata = {
   description: "A local plant observation atlas.",
 };
 
-function RootLayout({
+async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const supabase = await createSupabaseServerClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const initialEmail = user?.email ?? null;
+
   return (
     <html
       lang="en"
@@ -45,7 +54,7 @@ function RootLayout({
         <div className="pointer-events-none fixed inset-0 -z-10 bg-black/10" />
 
         <div className="relative flex min-h-screen flex-col">
-          <Header />
+          <Header initialEmail={initialEmail} />
 
           <main className="relative z-10 flex-1 pt-6">{children}</main>
         </div>

@@ -5,10 +5,14 @@ import Link from "next/link";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import ProfileMenu from "@/components/auth/ProfileMenu";
 
-function AuthStatus() {
+type AuthStatusProps = {
+  initialEmail: string | null;
+};
+
+function AuthStatus({ initialEmail }: AuthStatusProps) {
   const supabase = useMemo(() => createSupabaseBrowserClient(), []);
 
-  const [email, setEmail] = useState<string | null>(null);
+  const [email, setEmail] = useState<string | null>(initialEmail);
 
   useEffect(() => {
     const loadUser = async () => {

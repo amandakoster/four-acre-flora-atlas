@@ -2,7 +2,11 @@ import Link from "next/link";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import AuthStatus from "@/components/auth/AuthStatus";
 
-function Header() {
+type HeaderProps = {
+  initialEmail: string | null;
+};
+
+function Header({ initialEmail }: HeaderProps) {
   return (
     <header className="sticky top-0 z-50 border-b border-(--flora-border) bg-(--flora-glass) backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-8 py-5">
@@ -32,7 +36,7 @@ function Header() {
             Mission
           </Link>
 
-          <AuthStatus />
+          <AuthStatus initialEmail={initialEmail} />
         </nav>
       </div>
     </header>

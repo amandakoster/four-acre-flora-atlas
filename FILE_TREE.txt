@@ -42,7 +42,8 @@
 │   ├── components
 │   │   ├── auth
 │   │   │   ├── AuthStatus.tsx
-│   │   │   └── LoginForm.tsx
+│   │   │   ├── LoginForm.tsx
+│   │   │   └── ProfileMenu.tsx
 │   │   ├── Breadcrumbs.tsx
 │   │   ├── forms
 │   │   │   └── AddObservationForm.tsx
@@ -69,6 +70,7 @@
 │   ├── constants
 │   │   └── observationOptions.ts
 │   ├── data
+│   │   ├── authMenu.ts
 │   │   ├── locations.ts
 │   │   ├── mission.ts
 │   │   ├── observations.ts
@@ -78,10 +80,9 @@
 │   ├── lib
 │   │   ├── auth
 │   │   ├── season
-│   │   ├── supabase
-│   │   │   ├── client.ts
-│   │   │   └── server.ts
-│   │   └── supabase.ts
+│   │   └── supabase
+│   │       ├── client.ts
+│   │       └── server.ts
 │   ├── services
 │   │   └── locationService.ts
 │   ├── styles

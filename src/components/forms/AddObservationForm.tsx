@@ -1,15 +1,28 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { zones } from "@/data/locations";
-import { supabase } from "@/lib/supabase";
+import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import {
   habitatOptions,
   lightExposureOptions,
   soilMoistureOptions,
 } from "@/constants/observationOptions";
 
-const emptyFormData = {
+type AddObservationFormData = {
+  commonName: string;
+  scientificName: string;
+  zoneId: string;
+  observedDate: string;
+  lightExposure: string;
+  soilMoisture: string;
+  habitat: string;
+  latitude: string;
+  longitude: string;
+  notes: string;
+};
+
+const emptyFormData: AddObservationFormData = {
   commonName: "",
   scientificName: "",
   zoneId: "",
@@ -23,9 +36,12 @@ const emptyFormData = {
 };
 
 function AddObservationForm() {
-  const [formData, setFormData] = useState(emptyFormData);
+  const supabase = useMemo(() => createSupabaseBrowserClient(), []);
 
-  const updateField = (field: keyof typeof formData, value: string) => {
+  const [formData, setFormData] =
+    useState<AddObservationFormData>(emptyFormData);
+
+  const updateField = (field: keyof AddObservationFormData, value: string) => {
     setFormData((current) => ({
       ...current,
       [field]: value,
@@ -90,7 +106,7 @@ function AddObservationForm() {
         <input
           className="w-full rounded border border-zinc-500 bg-transparent p-2"
           value={formData.commonName}
-          onChange={(e) => updateField("commonName", e.target.value)}
+          onChange={(event) => updateField("commonName", event.target.value)}
         />
       </div>
 
@@ -102,7 +118,9 @@ function AddObservationForm() {
         <input
           className="w-full rounded border border-zinc-700 bg-transparent p-2"
           value={formData.scientificName}
-          onChange={(e) => updateField("scientificName", e.target.value)}
+          onChange={(event) =>
+            updateField("scientificName", event.target.value)
+          }
         />
       </div>
 
@@ -112,7 +130,7 @@ function AddObservationForm() {
         <select
           className="w-full rounded border border-zinc-700 bg-black p-2"
           value={formData.zoneId}
-          onChange={(e) => updateField("zoneId", e.target.value)}
+          onChange={(event) => updateField("zoneId", event.target.value)}
         >
           <option value="">Select zone</option>
 
@@ -133,7 +151,7 @@ function AddObservationForm() {
           type="date"
           className="w-full rounded border border-zinc-700 bg-transparent p-2"
           value={formData.observedDate}
-          onChange={(e) => updateField("observedDate", e.target.value)}
+          onChange={(event) => updateField("observedDate", event.target.value)}
         />
       </div>
 
@@ -145,7 +163,7 @@ function AddObservationForm() {
         <select
           className="w-full rounded border border-zinc-700 bg-black p-2"
           value={formData.lightExposure}
-          onChange={(e) => updateField("lightExposure", e.target.value)}
+          onChange={(event) => updateField("lightExposure", event.target.value)}
         >
           <option value="">Select light exposure</option>
 
@@ -165,7 +183,7 @@ function AddObservationForm() {
         <select
           className="w-full rounded border border-zinc-700 bg-black p-2"
           value={formData.soilMoisture}
-          onChange={(e) => updateField("soilMoisture", e.target.value)}
+          onChange={(event) => updateField("soilMoisture", event.target.value)}
         >
           <option value="">Select soil moisture</option>
 
@@ -183,7 +201,7 @@ function AddObservationForm() {
         <select
           className="w-full rounded border border-zinc-700 bg-black p-2"
           value={formData.habitat}
-          onChange={(e) => updateField("habitat", e.target.value)}
+          onChange={(event) => updateField("habitat", event.target.value)}
         >
           <option value="">Select habitat</option>
 
@@ -201,7 +219,7 @@ function AddObservationForm() {
         <input
           className="w-full rounded border border-zinc-700 bg-transparent p-2"
           value={formData.latitude}
-          onChange={(e) => updateField("latitude", e.target.value)}
+          onChange={(event) => updateField("latitude", event.target.value)}
         />
       </div>
 
@@ -211,7 +229,7 @@ function AddObservationForm() {
         <input
           className="w-full rounded border border-zinc-700 bg-transparent p-2"
           value={formData.longitude}
-          onChange={(e) => updateField("longitude", e.target.value)}
+          onChange={(event) => updateField("longitude", event.target.value)}
         />
       </div>
 
@@ -221,7 +239,7 @@ function AddObservationForm() {
         <textarea
           className="min-h-32 w-full rounded border border-zinc-700 bg-transparent p-2"
           value={formData.notes}
-          onChange={(e) => updateField("notes", e.target.value)}
+          onChange={(event) => updateField("notes", event.target.value)}
         />
       </div>
 

@@ -1,7 +1,8 @@
 "use client";
 
+import { useMemo } from "react";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabase";
+import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
 type Props = {
   speciesId: string;
@@ -10,6 +11,7 @@ type Props = {
 
 function DeleteSpeciesButton({ speciesId, speciesName }: Props) {
   const router = useRouter();
+  const supabase = useMemo(() => createSupabaseBrowserClient(), []);
 
   const handleDelete = async () => {
     const confirmed = window.confirm(`Delete ${speciesName}?`);

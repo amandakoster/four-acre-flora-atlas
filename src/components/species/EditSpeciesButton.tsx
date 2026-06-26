@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { supabase } from "@/lib/supabase";
+import { useMemo, useState } from "react";
+import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
 type Props = {
   species: {
@@ -14,6 +14,8 @@ type Props = {
 };
 
 function EditSpeciesButton({ species }: Props) {
+  const supabase = useMemo(() => createSupabaseBrowserClient(), []);
+
   const [editing, setEditing] = useState(false);
 
   const [commonName, setCommonName] = useState(species.common_name ?? "");
@@ -61,25 +63,25 @@ function EditSpeciesButton({ species }: Props) {
       <input
         className="w-full rounded border p-2"
         value={commonName}
-        onChange={(e) => setCommonName(e.target.value)}
+        onChange={(event) => setCommonName(event.target.value)}
       />
 
       <input
         className="w-full rounded border p-2"
         value={scientificName}
-        onChange={(e) => setScientificName(e.target.value)}
+        onChange={(event) => setScientificName(event.target.value)}
       />
 
       <input
         className="w-full rounded border p-2"
         value={habitat}
-        onChange={(e) => setHabitat(e.target.value)}
+        onChange={(event) => setHabitat(event.target.value)}
       />
 
       <textarea
         className="min-h-32 w-full rounded border p-2"
         value={notes}
-        onChange={(e) => setNotes(e.target.value)}
+        onChange={(event) => setNotes(event.target.value)}
       />
 
       <button onClick={handleSave} className="rounded border px-4 py-2">

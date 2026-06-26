@@ -1,8 +1,10 @@
 import NavigationCard from "@/components/ui/NavigationCard";
-import { supabase } from "@/lib/supabase";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { Species } from "@/types/species";
 
 async function SpeciesPage() {
+  const supabase = await createSupabaseServerClient();
+
   const { data, error } = await supabase
     .from("species")
     .select("*")
