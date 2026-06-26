@@ -20,6 +20,7 @@
 │       ├── page.tsx
 │       └── [speciesId]
 │           └── page.tsx
+├── CHATGPT_CONTEXT.txt
 ├── eslint.config.mjs
 ├── FILE_TREE.txt
 ├── next.config.ts
@@ -49,6 +50,9 @@
 │   │   │   └── AddObservationForm.tsx
 │   │   ├── Header.tsx
 │   │   ├── location
+│   │   │   ├── locationId
+│   │   │   │   └── page.tsx
+│   │   │   └── page.tsx
 │   │   ├── mission
 │   │   │   ├── MissionCard.tsx
 │   │   │   ├── MissionSection.tsx
