@@ -1,4 +1,4 @@
-import Card from "@/components/ui/Card";
+import NavigationCard from "@/components/ui/NavigationCard";
 
 type Props = {
   items: {
@@ -15,7 +15,7 @@ export default function RecentObservations({ items }: Props) {
   return (
     <div className="space-y-4">
       {items.map((o) => (
-        <Card
+        <NavigationCard
           key={o.id}
           name={o.species.commonName}
           description={`${o.zoneId} • ${o.observedDate}`}

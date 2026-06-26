@@ -2,6 +2,8 @@
 │   ├── dashboard
 │   ├── favicon.ico
 │   ├── layout.tsx
+│   ├── mission
+│   │   └── page.tsx
 │   ├── observations
 │   │   └── page.tsx
 │   ├── page.tsx
@@ -37,6 +39,10 @@
 │   │   ├── forms
 │   │   │   └── AddObservationForm.tsx
 │   │   ├── Header.tsx
+│   │   ├── mission
+│   │   │   ├── MissionCard.tsx
+│   │   │   ├── MissionSection.tsx
+│   │   │   └── PhaseCard.tsx
 │   │   ├── RecentObservations.tsx
 │   │   ├── species
 │   │   │   ├── DeleteSpeciesButton.tsx
@@ -47,10 +53,14 @@
 │   │   │   ├── SpeciesDetails.tsx
 │   │   │   └── SpeciesHeader.tsx
 │   │   └── ui
-│   │       └── Card.tsx
+│   │       ├── DetailCard.tsx
+│   │       ├── DetailRow.tsx
+│   │       ├── NavigationCard.tsx
+│   │       └── PhotoPlaceholder.tsx
 │   ├── constants
 │   │   └── observationOptions.ts
 │   ├── data
+│   │   ├── mission.ts
 │   │   ├── observations.ts
 │   │   ├── README-data.md
 │   │   ├── species.ts
