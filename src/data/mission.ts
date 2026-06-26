@@ -90,12 +90,27 @@ export const phases = [
   },
 ];
 
-export const technologies = [
-  "Next.js",
-  "React",
-  "TypeScript",
-  "Tailwind CSS",
-  "Supabase",
-  "PostgreSQL",
-  "Vercel",
+export const architecture = [
+  {
+    title: "Next.js",
+    description: "Server-rendered React application using the App Router.",
+  },
+  {
+    title: "TypeScript",
+    description: "Strict typing across the entire application.",
+  },
+  {
+    title: "Tailwind CSS",
+    description: "Custom botanical design system built with Tailwind CSS v4.",
+  },
+  {
+    title: "Supabase",
+    description:
+      "PostgreSQL database, authentication, storage, and future user management.",
+  },
+  {
+    title: "Vercel",
+    description:
+      "Automatic deployments with preview environments for every pull request and production releases.",
+  },
 ];

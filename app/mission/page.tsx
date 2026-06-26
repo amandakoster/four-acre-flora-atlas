@@ -1,7 +1,7 @@
 import MissionCard from "@/components/mission/MissionCard";
 import MissionSection from "@/components/mission/MissionSection";
 import PhaseCard from "@/components/mission/PhaseCard";
-import { introduction, phases, principles, technologies } from "@/data/mission";
+import { architecture, introduction, phases, principles } from "@/data/mission";
 
 function MissionPage() {
   return (
@@ -41,15 +41,22 @@ function MissionPage() {
         </div>
       </MissionSection>
 
-      <MissionSection title="Built With">
-        <div className="flex flex-wrap gap-2">
-          {technologies.map((technology) => (
-            <span
-              key={technology}
-              className="rounded-full border border-(--flora-border) bg-(--flora-glass) px-3 py-1 text-sm text-(--flora-text-muted)"
-            >
-              {technology}
-            </span>
+      <MissionSection title="Technology & Architecture">
+        <div className="mb-5 max-w-3xl">
+          <p className="leading-7 text-(--flora-text-muted)">
+            Four-Acre Flora is built using a modern cloud-native architecture
+            focused on simplicity, maintainability, and long-term stewardship.
+            Next.js, TypeScript, Tailwind CSS, Supabase, PostgreSQL, and Vercel
+            provide a scalable foundation with automated deployments and a clean
+            developer experience.
+          </p>
+        </div>
+
+        <div className="grid gap-3 md:grid-cols-2">
+          {architecture.map((technology) => (
+            <MissionCard key={technology.title} title={technology.title}>
+              <p>{technology.description}</p>
+            </MissionCard>
           ))}
         </div>
       </MissionSection>
