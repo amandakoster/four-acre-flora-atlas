@@ -1,19 +1,24 @@
 ├── app
+│   ├── auth
+│   │   └── callback
+│   │       └── route.ts
 │   ├── dashboard
 │   ├── favicon.ico
 │   ├── layout.tsx
+│   ├── locations
+│   │   ├── [locationId]
+│   │   │   └── page.tsx
+│   │   └── page.tsx
+│   ├── login
+│   │   └── page.tsx
 │   ├── mission
 │   │   └── page.tsx
 │   ├── observations
 │   │   └── page.tsx
 │   ├── page.tsx
-│   ├── species
-│   │   ├── page.tsx
-│   │   └── [speciesId]
-│   │       └── page.tsx
-│   └── zones
+│   └── species
 │       ├── page.tsx
-│       └── [zoneId]
+│       └── [speciesId]
 │           └── page.tsx
 ├── eslint.config.mjs
 ├── FILE_TREE.txt
@@ -35,10 +40,14 @@
 ├── README.md
 ├── src
 │   ├── components
+│   │   ├── auth
+│   │   │   ├── AuthStatus.tsx
+│   │   │   └── LoginForm.tsx
 │   │   ├── Breadcrumbs.tsx
 │   │   ├── forms
 │   │   │   └── AddObservationForm.tsx
 │   │   ├── Header.tsx
+│   │   ├── location
 │   │   ├── mission
 │   │   │   ├── MissionCard.tsx
 │   │   │   ├── MissionSection.tsx
@@ -60,22 +69,29 @@
 │   ├── constants
 │   │   └── observationOptions.ts
 │   ├── data
+│   │   ├── locations.ts
 │   │   ├── mission.ts
 │   │   ├── observations.ts
 │   │   ├── README-data.md
-│   │   ├── species.ts
-│   │   └── zones.ts
-│   ├── helpers
-│   │   └── species
-│   │       └── seedSpecies.ts
+│   │   └── species.ts
+│   ├── hooks
 │   ├── lib
-│   │   ├── getZones.ts
+│   │   ├── auth
+│   │   ├── season
+│   │   ├── supabase
+│   │   │   ├── client.ts
+│   │   │   └── server.ts
 │   │   └── supabase.ts
+│   ├── services
+│   │   └── locationService.ts
 │   ├── styles
 │   │   ├── globals.css
 │   │   └── theme.css
-│   └── types
-│       ├── observation.ts
-│       ├── species.ts
-│       └── zone.ts
+│   ├── types
+│   │   ├── location.ts
+│   │   ├── observation.ts
+│   │   └── species.ts
+│   └── utils
+│       └── species
+│           └── seedSpecies.ts
 └── tsconfig.json

@@ -28,7 +28,7 @@
   --flora-sage: #b8c79b;
   --flora-moss: #a6b889;
   --flora-olive: #8da36d;
-  bg-(--flora-accent): #738d58;
+  --flora-forest: #738d58;
   --flora-dark-forest: #5d7348;
 
   /* -------------------------------------------------------------------------- */
@@ -76,32 +76,9 @@
   --flora-ice-600: #0284c7;
 
   /* -------------------------------------------------------------------------- */
-  /* Active Seasonal Theme                                                       */
+  /* Current Seasonal Theme (Summer)                                             */
   /* -------------------------------------------------------------------------- */
 
-  /* Spring */
-  /*
-  --flora-accent: var(--flora-pink-500);
-  --flora-accent-hover: var(--flora-pink-600);
-  --flora-accent-text: #ffffff;
-  */
-
-  /* Summer */
   --flora-accent: var(--flora-gold-500);
   --flora-accent-hover: var(--flora-gold-600);
-  --flora-accent-text: #2f2400;
-
-  /* Autumn */
-  /*
-  --flora-accent: var(--flora-orange-500);
-  --flora-accent-hover: var(--flora-orange-600);
-  --flora-accent-text: #ffffff;
-  */
-
-  /* Winter */
-  /*
-  --flora-accent: var(--flora-ice-500);
-  --flora-accent-hover: var(--flora-ice-600);
-  --flora-accent-text: #ffffff;
-  */
 }

@@ -1,11 +1,12 @@
 "use client";
 
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
+import ProfileMenu from "@/components/auth/ProfileMenu";
 
 function AuthStatus() {
-  const supabase = createSupabaseBrowserClient();
+  const supabase = useMemo(() => createSupabaseBrowserClient(), []);
 
   const [email, setEmail] = useState<string | null>(null);
 
@@ -29,36 +30,18 @@ function AuthStatus() {
     return () => subscription.unsubscribe();
   }, [supabase]);
 
-  const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    window.location.href = "/";
-  };
-
   if (!email) {
     return (
       <Link
         href="/login"
-        className="rounded-xl bg-(--flora-accent) px-5 py-2.5 text-sm font-medium text-(--flora-text) transition hover:bg-(--flora-accent-hover)"
+        className="rounded-xl bg-(--flora-accent) px-5 py-2.5 text-sm font-medium text-(--flora-accent-text) transition hover:bg-(--flora-accent-hover)"
       >
         Sign In
       </Link>
     );
   }
 
-  return (
-    <div className="flex items-center gap-4">
-      <span className="text-sm text-(--flora-text-muted)">
-        Welcome, {email.split("@")[0]}
-      </span>
-
-      <button
-        onClick={handleSignOut}
-        className="rounded-xl border border-(--flora-border) bg-(--flora-glass) px-5 py-2.5 text-sm font-medium text-(--flora-text) transition hover:border-(--flora-border-hover) hover:bg-(--flora-glass-hover)"
-      >
-        Sign Out
-      </button>
-    </div>
-  );
+  return <ProfileMenu email={email} />;
 }
 
 export default AuthStatus;

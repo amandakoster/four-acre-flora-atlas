@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabase";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
 import type { Species } from "@/types/species";
 
 type SeedSpecies = Pick<
@@ -20,6 +20,8 @@ type SeedSpecies = Pick<
 >;
 
 export async function seedSpecies(species: SeedSpecies[] = []) {
+  const supabase = await createSupabaseServerClient();
+
   const { data: seededSpecies, error } = await supabase
     .from("species")
     .upsert(species)
