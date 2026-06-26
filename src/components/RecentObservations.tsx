@@ -19,7 +19,7 @@ export default function RecentObservations({ items }: Props) {
           key={o.id}
           name={o.species.commonName}
           description={`${o.zoneId} • ${o.observedDate}`}
-          href={`/zones/${o.zoneId}`}
+          href={`/locations/${o.zoneId}`}
         />
       ))}
     </div>

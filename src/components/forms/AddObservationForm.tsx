@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { zones } from "@/data/zones";
+import { zones } from "@/data/locations";
 import { supabase } from "@/lib/supabase";
 import {
   habitatOptions,

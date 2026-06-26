@@ -1,7 +1,7 @@
 import NavigationCard from "@/components/ui/NavigationCard";
-import { zones } from "@/data/zones";
+import { zones } from "@/data/locations";
 
-async function ZonesPage() {
+async function LocationsPage() {
   return (
     <main className="mx-auto w-full max-w-7xl flex-1 px-8 pt-6 pb-12">
       <section className="mb-10">
@@ -32,7 +32,7 @@ async function ZonesPage() {
               key={zone.id}
               name={zone.name}
               description={zone.description}
-              href={`/zones/${zone.id}`}
+              href={`/locations/${zone.id}`}
             />
           ))}
         </div>
@@ -41,4 +41,4 @@ async function ZonesPage() {
   );
 }
 
-export default ZonesPage;
+export default LocationsPage;

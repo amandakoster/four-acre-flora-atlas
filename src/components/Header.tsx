@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import AuthStatus from "@/components/auth/AuthStatus";
 
 function Header() {
   return (
@@ -31,14 +32,7 @@ function Header() {
             Mission
           </Link>
 
-          {/*
-          <Link
-            href="/observations"
-            className="rounded-xl bg-(--flora-forest) px-5 py-2.5 text-sm font-medium text-(--flora-text) transition hover:bg-(--flora-olive)"
-          >
-            + Add Species
-          </Link>
-          */}
+          <AuthStatus />
         </nav>
       </div>
     </header>

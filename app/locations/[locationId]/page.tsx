@@ -4,17 +4,17 @@ import { Species } from "@/types/species";
 
 type Props = {
   params: Promise<{
-    zoneId: string;
+    locationId: string;
   }>;
 };
 
-async function ZonePage({ params }: Props) {
-  const { zoneId } = await params;
+async function LocationPage({ params }: Props) {
+  const { locationId } = await params;
 
   const { data: zone, error: zoneError } = await supabase
     .from("zones")
     .select("*")
-    .eq("id", zoneId)
+    .eq("id", locationId)
     .maybeSingle();
 
   if (zoneError) {
@@ -24,7 +24,7 @@ async function ZonePage({ params }: Props) {
   const { data, error: speciesError } = await supabase
     .from("species")
     .select("*")
-    .eq("zone_id", zoneId)
+    .eq("zone_id", locationId)
     .order("common_name");
 
   if (speciesError) {
@@ -41,7 +41,7 @@ async function ZonePage({ params }: Props) {
         </p>
 
         <h1 className="mb-4 text-4xl font-medium tracking-tight text-(--flora-text)">
-          {zone?.name ?? zoneId}
+          {zone?.name ?? locationId}
         </h1>
 
         {zone?.description && (
@@ -81,4 +81,4 @@ async function ZonePage({ params }: Props) {
   );
 }
 
-export default ZonePage;
+export default LocationPage;

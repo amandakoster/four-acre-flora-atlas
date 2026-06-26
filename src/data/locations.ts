@@ -1,4 +1,4 @@
-import type { Zone } from "@/types/zone";
+import type { Zone } from "@/types/location";
 
 export const zones: Zone[] = [
   { id: "forest", name: "Forest", description: "Wooded habitat." },

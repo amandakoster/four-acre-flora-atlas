@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { zones } from "@/data/zones";
+import { zones } from "@/data/locations";
 
 async function Home() {
   return (
@@ -30,7 +30,7 @@ async function Home() {
           {zones.map((zone) => (
             <Link
               key={zone.id}
-              href={`/zones/${zone.id}`}
+              href={`/locations/${zone.id}`}
               className="group rounded-2xl border border-[color:var(--flora-border)] bg-[color:var(--flora-glass)] px-6 py-4 backdrop-blur-md transition duration-300 hover:border-[color:var(--flora-border-hover)] hover:bg-[color:var(--flora-glass-hover)]"
             >
               <div className="flex items-center justify-between gap-6">

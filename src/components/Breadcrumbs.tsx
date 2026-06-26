@@ -30,7 +30,7 @@ export default function Breadcrumbs() {
         {visibleSegments.map((segment, index) => {
           const href =
             segments[0] === "zones"
-              ? `/zones/${visibleSegments.slice(0, index + 1).join("/")}`
+              ? `/locations/${visibleSegments.slice(0, index + 1).join("/")}`
               : `/${visibleSegments.slice(0, index + 1).join("/")}`;
 
           const isLast = index === visibleSegments.length - 1;
