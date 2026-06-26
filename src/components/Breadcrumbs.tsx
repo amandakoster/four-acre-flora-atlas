@@ -19,7 +19,7 @@ export default function Breadcrumbs() {
     segments[0] === "zones" ? segments.slice(1) : segments;
 
   return (
-    <nav aria-label="Breadcrumb" className="text-sm text-gray-400">
+    <nav aria-label="Breadcrumb" className="text-sm text-(--flora-text-muted)">
       <ol className="flex items-center gap-2">
         <li>
           <Link href="/" className="hover:text-white">
