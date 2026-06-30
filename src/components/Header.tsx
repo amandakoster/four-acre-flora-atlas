@@ -20,7 +20,11 @@ function Header({ initialEmail }: HeaderProps) {
               </h1>
             </Link>
 
-            <div className="mt-2">
+            <p className="mt-1 text-xs font-medium uppercase tracking-[0.28em] text-(--flora-text-muted) sm:text-sm">
+              Explore • Document • Preserve
+            </p>
+
+            <div className="mt-3">
               <Breadcrumbs />
             </div>
           </div>

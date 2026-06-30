@@ -29,10 +29,6 @@ async function SpeciesDetailPage({ params }: Props) {
   return (
     <main className="mx-auto w-full max-w-7xl flex-1 px-8 pt-6 pb-12">
       <section className="mb-10">
-        <p className="mb-3 text-sm font-medium uppercase tracking-[0.4em] text-[color:var(--flora-moss)]">
-          Explore • Document • Preserve
-        </p>
-
         <SpeciesHeader species={species} />
       </section>
 

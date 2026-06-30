@@ -57,6 +57,7 @@
 │   │   │   ├── MissionCard.tsx
 │   │   │   ├── MissionSection.tsx
 │   │   │   └── PhaseCard.tsx
+│   │   ├── MobileMenu.tsx
 │   │   ├── RecentObservations.tsx
 │   │   ├── species
 │   │   │   ├── DeleteSpeciesButton.tsx
@@ -91,6 +92,7 @@
 │   │   └── locationService.ts
 │   ├── styles
 │   │   ├── globals.css
+│   │   ├── layout.css
 │   │   └── theme.css
 │   ├── types
 │   │   ├── location.ts
