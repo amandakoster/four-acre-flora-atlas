@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import "@/styles/globals.css";
 import "@/styles/theme.css";
+import "@/styles/layout.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,11 +21,11 @@ export const metadata: Metadata = {
   description: "A local plant observation atlas.",
 };
 
-async function RootLayout({
-  children,
-}: Readonly<{
+type RootLayoutProps = Readonly<{
   children: React.ReactNode;
-}>) {
+}>;
+
+async function RootLayout({ children }: RootLayoutProps) {
   const supabase = await createSupabaseServerClient();
 
   const {
@@ -56,7 +57,9 @@ async function RootLayout({
         <div className="relative flex min-h-screen flex-col">
           <Header initialEmail={initialEmail} />
 
-          <main className="relative z-10 flex-1 pt-6">{children}</main>
+          <main className="layout-page relative z-10 flex-1 pt-6">
+            {children}
+          </main>
         </div>
       </body>
     </html>

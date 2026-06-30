@@ -15,9 +15,7 @@ type ProfileMenuProps = {
 
 function ProfileMenu({ email }: ProfileMenuProps) {
   const supabase = useMemo(() => createSupabaseBrowserClient(), []);
-
   const [open, setOpen] = useState(false);
-
   const menuRef = useRef<HTMLDivElement>(null);
 
   const username = email.split("@")[0];
@@ -56,7 +54,7 @@ function ProfileMenu({ email }: ProfileMenuProps) {
           key={item.label}
           href={item.href}
           onClick={() => setOpen(false)}
-          className="block px-4 py-2 text-sm text-(--flora-text) transition hover:bg-white/5"
+          className="block whitespace-nowrap px-3 py-2 text-left text-sm text-(--flora-text) transition hover:bg-white/5"
         >
           {item.label}
         </Link>
@@ -68,7 +66,7 @@ function ProfileMenu({ email }: ProfileMenuProps) {
         key={item.label}
         type="button"
         onClick={handleSignOut}
-        className="block w-full px-4 py-2 text-left text-sm font-medium text-(--flora-accent) transition hover:bg-white/5"
+        className="block w-full whitespace-nowrap px-3 py-2 text-left text-sm font-medium text-(--flora-accent) transition hover:bg-white/5"
       >
         {item.label}
       </button>
@@ -107,10 +105,10 @@ function ProfileMenu({ email }: ProfileMenuProps) {
       </button>
 
       {open && (
-        <div className="absolute right-0 z-50 mt-1.5 w-52 overflow-hidden rounded-2xl border border-(--flora-border) bg-(--flora-glass) shadow-2xl backdrop-blur-md">
+        <div className="absolute right-0 top-full z-50 mt-1 overflow-hidden rounded-xl border border-(--flora-border) bg-[#0b0f0d] shadow-2xl">
           {authMenu.map((section: AuthMenuSection, sectionIndex: number) => (
             <div key={sectionIndex}>
-              <nav className="py-2">
+              <nav className="py-1">
                 {section.items.map((item: AuthMenuItem) =>
                   renderMenuItem(item),
                 )}
